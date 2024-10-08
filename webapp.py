@@ -18,9 +18,11 @@ def render_fact():
     state = request.args.get('state')
     county = county_most_under_18(state)
     county2 = county_most_veterans(state)
+    county3 = county_most_total_firms(state)
     fact = "In " + state + ", the county with the highest percentage of under 18 year olds is " + county + "."
-    fact2 = "In " + state ", the county with the most veterans is " + county + "."
-    return render_template('home.html', state_options=states, funFact=fact, funFact2=fact2)
+    fact2 = "In " + state + ", the county with the most veterans is " + county2 + "."
+    fact3 = "In " + state + ", the county with the most total employment firms is " + county3 + "."
+    return render_template('home.html', state_options=states, funFact=fact, funFact2=fact2, funFact3=fact3)
 
     
 def get_state_options():
@@ -50,7 +52,7 @@ def county_most_under_18(state):
     return county
 
 def county_most_veterans(state):
-    with open('demographics.json') as demographics_data
+    with open('demographics.json') as demographics_data:
         counties = json.load(demographics_data)
     highest=0
     county2 = ""
@@ -58,8 +60,20 @@ def county_most_veterans(state):
         if c["State"] == state:
             if c["Miscellaneous"]["Veterans"] > highest:
                 highest =c["Miscellaneous"]["Veterans"]
-                county = c["County"]
+                county2 = c["County"]
     return county2
+    
+def county_most_total_firms(state):
+    with open('demographics.json') as demographics_data:
+        counties = json.load(demographics_data)
+    highest=0
+    county3 = ""
+    for c in counties:
+        if c["State"] == state:
+            if c["Employment"]["Firms"]["Total"] > highest:
+                highest = c["Employment"]["Firms"]["Total"]
+                county3 = c["County"]
+    return county3
             
 
 def is_localhost():
