@@ -20,9 +20,14 @@ def render_fact():
     county2 = county_most_veterans(state)
     county3 = county_most_total_firms(state)
     fact = "In " + state + ", the county with the highest percentage of under 18 year olds is " + county + "."
+<<<<<<< HEAD
     fact2 = "In " + state + ", the county with the most veterans is " + county2 + "."
     fact3 = "In " + state + ", the county with the most total employment firms is " + county3 + "."
     return render_template('home.html', state_options=states, funFact=fact, funFact2=fact2, funFact3=fact3)
+=======
+    fact2 = "In " + state + ", the county with the most veterans is " + county + "."
+    return render_template('home.html', state_options=states, funFact=fact, funFact2=fact2)
+>>>>>>> c5eb0ca3914c82426f44c8b5657f9d7d08eb4119
 
     
 def get_state_options():
